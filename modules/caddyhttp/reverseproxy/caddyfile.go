@@ -298,7 +298,16 @@ func (h *Handler) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 				if h.HealthChecks.Active == nil {
 					h.HealthChecks.Active = new(ActiveHealthChecks)
 				}
-				h.HealthChecks.Active.Path = d.Val()
+
+				// For convenience, the path may contain a query segment,
+				// so we parse to separate it in parts
+				url, err := url.Parse(d.Val())
+				if err != nil {
+					return d.Errf("failed to parse URL '%s': %v", d.Val(), err)
+				}
+
+				h.HealthChecks.Active.Path = url.Path
+				h.HealthChecks.Active.Query = url.RawQuery
 
 			case "health_port":
 				if !d.NextArg() {
@@ -382,7 +391,7 @@ func (h *Handler) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 				if len(val) == 3 && strings.HasSuffix(val, "xx") {
 					val = val[:1]
 				}
-				statusNum, err := strconv.Atoi(val[:1])
+				statusNum, err := strconv.Atoi(val)
 				if err != nil {
 					return d.Errf("bad status value '%s': %v", d.Val(), err)
 				}
@@ -463,7 +472,7 @@ func (h *Handler) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 					if len(arg) == 3 && strings.HasSuffix(arg, "xx") {
 						arg = arg[:1]
 					}
-					statusNum, err := strconv.Atoi(arg[:1])
+					statusNum, err := strconv.Atoi(arg)
 					if err != nil {
 						return d.Errf("bad status value '%s': %v", d.Val(), err)
 					}

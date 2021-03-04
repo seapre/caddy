@@ -54,6 +54,9 @@ type ActiveHealthChecks struct {
 	// The URI path to use for health checks.
 	Path string `json:"path,omitempty"`
 
+	// The URI query to use for health checks.
+	Query string `json:"query,omitempty"`
+
 	// The port to use (if different from the upstream's dial
 	// address) for health checks.
 	Port int `json:"port,omitempty"`
@@ -216,9 +219,10 @@ func (h *Handler) doActiveHealthCheck(dialInfo DialInfo, hostAddr string, host H
 		scheme = "https"
 	}
 	u := &url.URL{
-		Scheme: scheme,
-		Host:   hostAddr,
-		Path:   h.HealthChecks.Active.Path,
+		Scheme:   scheme,
+		Host:     hostAddr,
+		Path:     h.HealthChecks.Active.Path,
+		RawQuery: h.HealthChecks.Active.Query,
 	}
 
 	// adjust the port, if configured to be different
