@@ -16,18 +16,19 @@ require (
 	github.com/mholt/acmez v0.1.3
 	github.com/naoina/go-stringutil v0.1.0 // indirect
 	github.com/naoina/toml v0.1.1
-	github.com/prometheus/client_golang v1.9.0
+	github.com/prometheus/client_golang v1.11.1
 	github.com/smallstep/certificates v0.15.4
 	github.com/smallstep/cli v0.15.2
 	github.com/smallstep/nosql v0.3.0 // cannot upgrade from v0.3.0 until protobuf warning is fixed
 	github.com/smallstep/truststore v0.9.6
 	github.com/yuin/goldmark v1.2.1
 	github.com/yuin/goldmark-highlighting v0.0.0-20200307114337-60d527fdb691
+	go.etcd.io/bbolt v1.3.3 // indirect
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de
 	golang.org/x/net v0.0.0-20201110031124-69a78807bb2b
 	google.golang.org/genproto v0.0.0-20200806141610-86f49bd18e98
-	google.golang.org/protobuf v1.24.0 // cannot upgrade until warning is fixed
+	google.golang.org/protobuf v1.26.0-rc.1 // cannot upgrade until warning is fixed
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gopkg.in/yaml.v2 v2.3.0
 )
